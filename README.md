@@ -34,4 +34,16 @@ pip install uuid
 pip install psycopg2
 ```
 2. Задать нужные параметры в файле **config.py** и **.env**(см. пример)
+```env
+#Данные приведённые здесь не являются действительными
+
+API_KEY = "dgergdfvef34t5vfwefv3"
+SECRET_KEY = "34v454ybtbbub6unfd5"
+
+BDNAME = "test"
+USER = "postgres"
+PASSWORD = "123"
+HOST = "127.0.0.1"
+
+```
 3. Запустить скрипт (файл main.py)
