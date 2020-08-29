@@ -1,0 +1,5 @@
+SELECT DISTINCT d.`date` AS date_recognition, d.`result` AS result_recognition, COUNT(d.`result`) AS count_result, SUM(d.`duration_call`) as sum_duaration, project.name, server.name
+FROM data d
+INNER JOIN project ON project.id = d.project_id
+INNER JOIN server ON server.id = d.server_id
+GROUP BY result, duration_call
