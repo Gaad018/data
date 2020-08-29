@@ -15,7 +15,9 @@ def main():
     configData = {}
     exec(open('config/config.py').read(), configData)
 
+
     log.logging('Start programm', 'info')
+
     #Ввод данных из консоли
     data = input.inputData()
     fileLocation = data[0]
@@ -27,7 +29,7 @@ def main():
     try:
         client = ClientSTT(f'{os.getenv("API_KEY")}', f'{os.getenv("SECRET_KEY")}')
         # recognise method call
-        response = client.recognize(fileLocation, configData['audio_config'])
+        response = client.recognize(fileLocation, configData['audioConfig'])
         log.logging('Success recognition', 'info')
     except:
         log.logging('Error at the recognition stage')
@@ -37,8 +39,7 @@ def main():
         textAudio = response[0]['alternatives'][0]['transcript']
         id = uuid.uuid1()
         durationCall = response[0]['end_time'][0:-1]
-        responseRecognition = rec.recognition(textAudio, recognitionStage)
-
+        responseRecognition = rec.recognition(textAudio, recognitionStage, configData['returnValues'])
 
         log.logging('', 'result', [id, responseRecognition, phoneNumber, durationCall, textAudio])
     except:
@@ -47,17 +48,7 @@ def main():
     # Работа с базой и удаление файла
     try:
         if databaseFlag == 1:
-            database.bd(
-                os.getenv("BDNAME"),
-                os.getenv("USER"),
-                os.getenv("PASSWORD"),
-                os.getenv("HOST"),
-                id,
-                responseRecognition,
-                phoneNumber,
-                durationCall,
-                textAudio
-            )
+            database.bd([id, responseRecognition,phoneNumber, durationCall, textAudio])
 
             # Удаление файла
             os.remove(fileLocation)

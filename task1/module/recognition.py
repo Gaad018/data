@@ -1,6 +1,6 @@
 import re
 
-def recognition(text, stage):
+def recognition(text, stage, config):
     """
     recognition(text, stage)
     Функция распознавания текста в зависимости от выбранного этапа
@@ -9,14 +9,17 @@ def recognition(text, stage):
     :param stage: int
     :return: string
     """
+
+    print(config)
+
     if stage == 1:
         if re.findall(r'(автоответчик)', text) != []:
-            response =  0
+            response = config['stage1']['ao']
         else:
-            response =  1
+            response =  config['stage1']['man']
     elif stage == 2:
         if re.findall(r'(неудобно|нет)', text) != []:
-            response = 0
+            response = config['stage2']['negative']
         else:
-            response = 1
+            response = config['stage2']['positive']
     return response
