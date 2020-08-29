@@ -33,7 +33,16 @@ pip install re
 pip install uuid
 pip install psycopg2
 ```
-2. Задать нужные параметры в файле **config.py** и **.env**(см. пример)
+2. Задать нужные параметры в файле **config.py** 
+```conf
+audio_config = {
+    "encoding": "LINEAR16",
+    "sample_rate_hertz": 8000,
+    "num_channels": 1
+}
+
+```
+и **.env**(см. пример)
 ```env
 #Данные приведённые здесь не являются действительными
 
